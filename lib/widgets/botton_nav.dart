@@ -42,7 +42,7 @@ class BottomNav extends StatelessWidget {
             ),
           ),
           body: TabBarView(
-              children: [const HomeScreen(),  SearchScreen(), AddStudent()]),
-        ));
+              children: [const HomeScreen(),  SearchScreen(), AddStudent(),],),
+        ),);
   }
 }

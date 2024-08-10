@@ -65,6 +65,7 @@ class AddStudent extends StatelessWidget {
                       height: 130,
                     ),
                     CustomTextForm(
+                        keyboardType: TextInputType.name,
                         controller: nameController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -76,6 +77,7 @@ class AddStudent extends StatelessWidget {
                         hintext: 'Name',
                         labeltext: 'Enter your name'),
                     CustomTextForm(
+                        keyboardType: TextInputType.number,
                         controller: ageController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -87,6 +89,7 @@ class AddStudent extends StatelessWidget {
                         hintext: 'Age',
                         labeltext: 'Enter your age'),
                     CustomTextForm(
+                        keyboardType: TextInputType.name,
                         controller: placeController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -98,10 +101,11 @@ class AddStudent extends StatelessWidget {
                         hintext: 'Place',
                         labeltext: 'Enter your place'),
                     CustomTextForm(
+                        keyboardType: TextInputType.phone,
                         controller: phoneController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'place cant be empty';
+                            return 'phone no. cant be empty';
                           } else {
                             return null;
                           }
@@ -113,10 +117,11 @@ class AddStudent extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
-                          padding:const  EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                               left: 128, right: 128, top: 15, bottom: 15),
                           foregroundColor: Colors.white,
-                          backgroundColor:const   Color.fromARGB(255, 147, 168, 178),
+                          backgroundColor:
+                              const Color.fromARGB(255, 147, 168, 178),
                         ),
                         onPressed: saveStudent,
                         child: const Text('Submit')),
@@ -138,7 +143,6 @@ class AddStudent extends StatelessWidget {
 
   void saveStudent() async {
     if (formKey.currentState!.validate()) {
-      
       StudentModel student = StudentModel();
       student.studentName = nameController.text.trim();
       student.age = ageController.text.trim();
@@ -147,6 +151,7 @@ class AddStudent extends StatelessWidget {
       student.photo = pickedImageController.selectedimage.value?.path ?? '';
 
       await studentController.addStudent(student);
+      pickedImageController.selectedimage.value = null;
     }
   }
 

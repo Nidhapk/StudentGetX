@@ -31,7 +31,7 @@ class StudentController extends GetxController {
   Future<void> addStudent(StudentModel student) async {
     try {
       await studentBox.add(student);
-      studentRxList.add(student);
+      
       Get.snackbar(
         'Success',
         'Student added successfully',

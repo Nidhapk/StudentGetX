@@ -4,13 +4,14 @@ class CustomTextForm extends StatelessWidget {
   final String hintext;
   final String labeltext;
   final TextEditingController controller;
+ final TextInputType? keyboardType;
   final String? Function(String?)? validator;
   const CustomTextForm(
       {super.key,
       required this.hintext,
       required this.labeltext,
       required this.controller,
-      this.validator});
+      this.validator,required this.keyboardType});
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +21,7 @@ class CustomTextForm extends StatelessWidget {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           validator: validator,
           controller: controller,
+      keyboardType: keyboardType  ,
           decoration: InputDecoration(
             hintText: hintext,
             hintStyle: const TextStyle(color: Colors.green),

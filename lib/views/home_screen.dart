@@ -29,74 +29,78 @@ class HomeScreen extends StatelessWidget {
               const TitleContainer(),
               Expanded(
                 child: Obx(
-                  () => ListView.builder(
-                      itemCount: studentController.studentList.length,
-                      itemBuilder: (context, index) {
-                        final StudentModel student =
-                            studentController.studentList[index];
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              Get.to(() => DetailScreen(student: student));
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.white,
-                              ),
-                              child: ListTile(
-                                leading: CircleAvatar(
-                                  backgroundImage: student.photo.isNotEmpty
-                                      ? FileImage(File(student.photo))
-                                      : const AssetImage(
-                                          'lib/assets/ea829acc861a7c3f81182ad2929a5242.jpg'),
-                                  maxRadius: 30,
-                                ),
-                                title: Text(student.studentName ?? ''),
-                                subtitle: Text(student.age ?? ''),
-                                trailing: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    IconButton(
-                                      icon: const Icon(Icons.edit),
-                                      onPressed: () {
-                                        Get.to(() => EditStudent(
-                                              student: student,
+                  () => studentController.studentList.isEmpty
+                      ? Center(child: Text('No student has been registered'))
+                      : ListView.builder(
+                          itemCount: studentController.studentList.length,
+                          itemBuilder: (context, index) {
+                            final StudentModel student =
+                                studentController.studentList[index];
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.to(() => DetailScreen(student: student));
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.white,
+                                  ),
+                                  child: ListTile(
+                                    leading: CircleAvatar(
+                                      backgroundImage: student.photo.isNotEmpty
+                                          ? FileImage(File(student.photo))
+                                          : const AssetImage(
+                                              'lib/assets/ea829acc861a7c3f81182ad2929a5242.jpg'),
+                                      maxRadius: 30,
+                                    ),
+                                    title: Text(student.studentName ?? ''),
+                                    subtitle: Text(student.age ?? ''),
+                                    trailing: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        IconButton(
+                                          icon: const Icon(Icons.edit),
+                                          onPressed: () {
+                                            Get.to(() => EditStudent(
+                                                  student: student,
+                                                ));
+                                          },
+                                        ),
+                                        IconButton(
+                                          icon: const Icon(Icons.delete),
+                                          onPressed: () {
+                                            Get.dialog(AlertDialog(
+                                              title: const Text('Delete'),
+                                              content: const Text(
+                                                  'Are you sure you want to delete this student?'),
+                                              actions: [
+                                                TextButton(
+                                                    onPressed: () {
+                                                      Get.back();
+                                                    },
+                                                    child:
+                                                        const Text('Cancel')),
+                                                TextButton(
+                                                    onPressed: () {
+                                                      studentController
+                                                          .deleteStudent(
+                                                              student);
+                                                      Get.back();
+                                                    },
+                                                    child: const Text('Delete'))
+                                              ],
                                             ));
-                                      },
+                                          },
+                                        ),
+                                      ],
                                     ),
-                                    IconButton(
-                                      icon: const Icon(Icons.delete),
-                                      onPressed: () {
-                                        Get.dialog(AlertDialog(
-                                          title: const Text('Delete'),
-                                          content: const Text(
-                                              'Are you sure you want to delete this student?'),
-                                          actions: [
-                                            TextButton(
-                                                onPressed: () {
-                                                  Get.back();
-                                                },
-                                                child: const Text('Cancel')),
-                                            TextButton(
-                                                onPressed: () {
-                                                  studentController
-                                                      .deleteStudent(student);
-                                                  Get.back();
-                                                },
-                                                child: const Text('Delete'))
-                                          ],
-                                        ));
-                                      },
-                                    ),
-                                  ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                        );
-                      }),
+                            );
+                          }),
                 ),
               )
             ],

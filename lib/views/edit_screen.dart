@@ -76,6 +76,7 @@ class EditStudent extends StatelessWidget {
                       height: 130,
                     ),
                     CustomTextForm(
+                        keyboardType: TextInputType.name,
                         controller: nameController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -87,6 +88,7 @@ class EditStudent extends StatelessWidget {
                         hintext: 'Name',
                         labeltext: 'Enter your name'),
                     CustomTextForm(
+                        keyboardType: TextInputType.number,
                         controller: ageController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -98,6 +100,7 @@ class EditStudent extends StatelessWidget {
                         hintext: 'Age',
                         labeltext: 'Enter your age'),
                     CustomTextForm(
+                        keyboardType: TextInputType.name,
                         controller: placeController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -109,10 +112,11 @@ class EditStudent extends StatelessWidget {
                         hintext: 'Place',
                         labeltext: 'Enter your place'),
                     CustomTextForm(
+                        keyboardType: TextInputType.phone,
                         controller: phoneController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'place cant be empty';
+                            return 'phone no. cant be empty';
                           } else {
                             return null;
                           }
@@ -126,10 +130,11 @@ class EditStudent extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
-                          padding:const  EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                               left: 128, right: 128, top: 15, bottom: 15),
                           foregroundColor: Colors.white,
-                          backgroundColor: const Color.fromARGB(255, 147, 168, 178),
+                          backgroundColor:
+                              const Color.fromARGB(255, 147, 168, 178),
                         ),
                         onPressed: () {
                           saveStudent(
@@ -141,7 +146,6 @@ class EditStudent extends StatelessWidget {
                               pickedImageEditController
                                   .selectedimage.value!.path);
                         },
-                        
                         child: const Text('Submit')),
                     const SizedBox(
                       height: 30,
